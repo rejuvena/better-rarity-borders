@@ -29,8 +29,7 @@ public sealed class RendererUpdaterSystem : ModSystem
     private static void RenderBordersAndParticles(On.Terraria.Main.orig_DrawInterface_27_Inventory orig, Terraria.Main self) {
         var mod = ModContent.GetInstance<BetterRarityBordersMod>();
 
-        mod.BorderRenderer.Update();
-        mod.ParticleRenderer.Update();
+        foreach (var renderer in mod.Renderers) renderer.Update();
 
         orig(self);
     }

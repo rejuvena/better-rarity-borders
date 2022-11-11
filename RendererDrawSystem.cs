@@ -30,8 +30,7 @@ public sealed class RendererDrawSystem : GlobalItem
         bool drawingInItemSlot = ModContent.GetInstance<RendererUpdaterSystem>().IsDrawingInItemSlot;
         var drawData = new ItemDrawData(item, position, frame, drawColor, itemColor, origin, scale);
 
-        Mod.BorderRenderer.DrawBefore(spriteBatch, drawingInItemSlot, drawData);
-        Mod.ParticleRenderer.DrawBefore(spriteBatch, drawingInItemSlot, drawData);
+        foreach (var renderer in Mod.Renderers) renderer.DrawBefore(spriteBatch, drawingInItemSlot, drawData);
 
         return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
     }
@@ -48,9 +47,8 @@ public sealed class RendererDrawSystem : GlobalItem
     ) {
         bool drawingInItemSlot = ModContent.GetInstance<RendererUpdaterSystem>().IsDrawingInItemSlot;
         var drawData = new ItemDrawData(item, position, frame, drawColor, itemColor, origin, scale);
-        
-        Mod.ParticleRenderer.DrawAfter(spriteBatch, drawingInItemSlot, drawData);
-        Mod.BorderRenderer.DrawAfter(spriteBatch, drawingInItemSlot, drawData);
+
+        for (int i = Mod.Renderers.Count - 1; i >= 0; i--) Mod.Renderers[i].DrawAfter(spriteBatch, drawingInItemSlot, drawData);
 
         base.PostDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
     }

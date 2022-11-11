@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BetterRarityBorders.Rendering;
 using BetterRarityBorders.Rendering.Borders;
 using BetterRarityBorders.Rendering.Particles;
@@ -9,7 +10,9 @@ namespace BetterRarityBorders;
 [UsedImplicitly]
 public sealed class BetterRarityBordersMod : Mod
 {
-    public IRenderingSystem BorderRenderer { get; } = new BorderRenderingSystem();
-
-    public IRenderingSystem ParticleRenderer { get; } = new ParticleRenderingSystem();
+    public List<IRenderingSystem> Renderers = new()
+    {
+        new BorderRenderingSystem(),
+        new ParticleRenderingSystem()
+    };
 }

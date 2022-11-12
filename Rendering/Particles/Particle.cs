@@ -21,9 +21,9 @@ public abstract class Particle
     protected float Rotation;
     protected Color Color;
     protected float Alpha;
-    protected Rectangle? Frame;
+    protected Rectangle Frame;
     
-    protected Particle(Vector2 position, float z = 0f, Vector2? velocity = null, float scale = 1f, float rotation = 0f, Color? color = null, float alpha = 1f, Rectangle? frame = null) {
+    protected Particle(Vector2 position, Rectangle frame, float z = 0f, Vector2? velocity = null, float scale = 1f, float rotation = 0f, Color? color = null, float alpha = 1f) {
         Position = position;
         Z = z;
         Velocity = velocity ?? Vector2.Zero;
@@ -55,7 +55,7 @@ public abstract class Particle
         }
 
         var tex = Texture.Value.Value;
-        var frame = Frame ?? tex.Bounds;
+        var frame = Frame;
         sb.Draw(tex, Position, frame, Color * Alpha, Rotation, frame.Size() / 2f, Scale, 0, 0);
 
         if (DrawAdditively) {

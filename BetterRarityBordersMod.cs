@@ -10,7 +10,7 @@ namespace BetterRarityBorders;
 [UsedImplicitly]
 public sealed class BetterRarityBordersMod : Mod
 {
-    public List<IRenderingSystem> Renderers = new()
+    public readonly List<IRenderingSystem> Renderers = new()
     {
         new BorderRenderingSystem(),
         new ParticleRenderingSystem()

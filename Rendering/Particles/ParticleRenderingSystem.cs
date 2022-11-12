@@ -1,18 +1,26 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BetterRarityBorders.Rendering.Particles;
 
-public class ParticleRenderingSystem : IRenderingSystem
+public sealed class ParticleRenderingSystem : IRenderingSystem
 {
+    private readonly List<Particle> Particles = new();
+
+    public void AddParticle(Particle particle) {
+        Particles.Add(particle);
+    }
+
     void IRenderingSystem.Update() {
-        throw new System.NotImplementedException();
+        Particles.RemoveAll(x => !x.IsAlive);
     }
 
     void IRenderingSystem.DrawBefore(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData) {
-        throw new System.NotImplementedException();
+        Particles.ForEach(x => x.DrawBefore(sb, inItemSlot, itemDrawData));
     }
 
     void IRenderingSystem.DrawAfter(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData) {
-        throw new System.NotImplementedException();
+        Particles.ForEach(x => x.DrawAfter(sb, inItemSlot, itemDrawData));
     }
 }

@@ -14,6 +14,7 @@ public sealed class BorderRenderingSystem : IRenderingSystem
 
     void IRenderingSystem.DrawBefore(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
         if (!slotDrawData.InItemSlot) return;
+        if (slotDrawData.Context is 14 or 21 or 30) return;
         var mod = ModContent.GetInstance<BetterRarityBordersMod>();
         var config = ModContent.GetInstance<BrbConfig>();
         var texture = ModContent.Request<Texture2D>($"BetterRarityBorders/Assets/Border{config.BorderType}").Value;
@@ -23,7 +24,7 @@ public sealed class BorderRenderingSystem : IRenderingSystem
             null,
             mod.GetBorderColor(itemDrawData.Item),
             0f,
-            Vector2.Zero, 
+            Vector2.Zero,
             Main.inventoryScale,
             SpriteEffects.None,
             0f

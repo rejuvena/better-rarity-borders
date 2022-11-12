@@ -1,4 +1,6 @@
 Displays an item's rarity's color around the item (lining the item slot) as a border. This mod is directly inspired by "Rarity Borders" with what is, in my eyes, much better execution.
 
+Natively works with Magic Storage, Boss Checklist, and any other mod that uses item slots!
+
 Want to design your own border and have it added to the mod? Join the Discord through our mod homepage.
 The Discord is a great place to post suggestions and report bugs too. Config suggestions are especially encouraged!

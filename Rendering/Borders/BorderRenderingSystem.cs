@@ -13,6 +13,7 @@ public sealed class BorderRenderingSystem : IRenderingSystem
 
     void IRenderingSystem.DrawBefore(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData) {
         if (!inItemSlot) return;
+        return;
         var texture = ModContent.Request<Texture2D>("BetterRarityBorders/Assets/Default").Value;
         sb.Draw(
             texture,

@@ -22,7 +22,7 @@ public class SparkleParticle : Particle
         Velocity = Vector2.Zero;
         timer++;
 
-        if (timer % 14 == 13)
+        if (timer % 7 == 6)
             Frame.Y += 18;
 
         if (Frame.Y >= 90 || (Frame.X > 0 && Frame.Y >= 72))

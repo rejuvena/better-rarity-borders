@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Enums;
 using Terraria.GameContent.UI;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace BetterRarityBorders.Rendering.Borders;
 
@@ -14,7 +15,7 @@ public sealed class BorderRenderingSystem : IRenderingSystem
 
     void IRenderingSystem.DrawBefore(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
         if (!slotDrawData.InItemSlot) return;
-        if (slotDrawData.Context is 14 or 21 or 30) return;
+        if (slotDrawData.Context is ItemSlot.Context.ChatItem or ItemSlot.Context.MouseItem) return;
         var mod = ModContent.GetInstance<BetterRarityBordersMod>();
         var config = ModContent.GetInstance<BrbConfig>();
         var texture = ModContent.Request<Texture2D>($"BetterRarityBorders/Assets/Border{config.BorderType}").Value;

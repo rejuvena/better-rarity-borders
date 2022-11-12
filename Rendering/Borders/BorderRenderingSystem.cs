@@ -1,4 +1,5 @@
-﻿using BetterRarityBorders.Config;
+﻿using System.Linq;
+using BetterRarityBorders.Config;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -20,6 +21,7 @@ public sealed class BorderRenderingSystem : IRenderingSystem
         var mod = ModContent.GetInstance<BetterRarityBordersMod>();
         var config = ModContent.GetInstance<BrbConfig>();
 
+        if (config.BorderRarityBlacklist.Any(x => BetterRarityBordersMod.GetRarityType(x) == itemDrawData.Item.rare)) return;
         if (config.BorderContextBlacklist.Contains(slotDrawData.Context)) return;
         
         var texture = ModContent.Request<Texture2D>($"BetterRarityBorders/Assets/Border{config.BorderType}").Value;

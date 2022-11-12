@@ -6,7 +6,7 @@ public interface IRenderingSystem
 {
     void Update();
 
-    void DrawBefore(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData);
+    void DrawBefore(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData);
 
-    void DrawAfter(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData);
+    void DrawAfter(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData);
 }

@@ -38,12 +38,12 @@ public abstract class Particle
         Position += Velocity;
     }
 
-    public virtual void DrawBefore(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData) {
+    public virtual void DrawBefore(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
         if (Z >= 0.5f) return;
         DrawParticle(sb);
     }
 
-    public virtual void DrawAfter(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData) {
+    public virtual void DrawAfter(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
         if (Z < 0.5f) return;
         DrawParticle(sb);
     }

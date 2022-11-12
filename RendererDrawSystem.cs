@@ -27,11 +27,11 @@ public sealed class RendererDrawSystem : GlobalItem
         Vector2 origin,
         float scale
     ) {
-        bool drawingInItemSlot = ModContent.GetInstance<RendererUpdaterSystem>().IsDrawingInItemSlot;
+        var slotDrawData = ModContent.GetInstance<RendererUpdaterSystem>().SlotDrawData;
         var drawData = new ItemDrawData(item, position, frame, drawColor, itemColor, origin, scale);
 
-        foreach (var renderer in Mod.Renderers) if (renderer is ParticleRenderingSystem pRenderer) pRenderer.SpawnParticles(drawingInItemSlot, drawData);
-        foreach (var renderer in Mod.Renderers) renderer.DrawBefore(spriteBatch, drawingInItemSlot, drawData);
+        foreach (var renderer in Mod.Renderers) if (renderer is ParticleRenderingSystem pRenderer) pRenderer.SpawnParticles(slotDrawData, drawData);
+        foreach (var renderer in Mod.Renderers) renderer.DrawBefore(spriteBatch, slotDrawData, drawData);
 
         return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
     }
@@ -46,10 +46,10 @@ public sealed class RendererDrawSystem : GlobalItem
         Vector2 origin,
         float scale
     ) {
-        bool drawingInItemSlot = ModContent.GetInstance<RendererUpdaterSystem>().IsDrawingInItemSlot;
+        var slotDrawData = ModContent.GetInstance<RendererUpdaterSystem>().SlotDrawData;
         var drawData = new ItemDrawData(item, position, frame, drawColor, itemColor, origin, scale);
 
-        for (int i = Mod.Renderers.Count - 1; i >= 0; i--) Mod.Renderers[i].DrawAfter(spriteBatch, drawingInItemSlot, drawData);
+        for (int i = Mod.Renderers.Count - 1; i >= 0; i--) Mod.Renderers[i].DrawAfter(spriteBatch, slotDrawData, drawData);
 
         base.PostDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
     }

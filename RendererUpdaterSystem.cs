@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using BetterRarityBorders.Rendering;
+using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -9,7 +10,7 @@ namespace BetterRarityBorders;
 [UsedImplicitly]
 public sealed class RendererUpdaterSystem : ModSystem
 {
-    public bool IsDrawingInItemSlot { get; private set; }
+    public SlotDrawData SlotDrawData { get; private set; }
 
     public override void Load() {
         base.Load();
@@ -21,9 +22,9 @@ public sealed class RendererUpdaterSystem : ModSystem
     private static void DetermineItemSlowDrawing(On.Terraria.UI.ItemSlot.orig_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color orig, SpriteBatch spritebatch, Item[] inv, int context, int slot, Vector2 position, Color lightColor) {
         var system = ModContent.GetInstance<RendererUpdaterSystem>();
 
-        system.IsDrawingInItemSlot = true;
+        system.SlotDrawData = new SlotDrawData(true, position);
         orig(spritebatch, inv, context, slot, position, lightColor);
-        system.IsDrawingInItemSlot = false;
+        system.SlotDrawData = new SlotDrawData();
     }
 
     private static void RenderBordersAndParticles(On.Terraria.Main.orig_DrawInterface_27_Inventory orig, Terraria.Main self) {

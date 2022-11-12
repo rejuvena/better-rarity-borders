@@ -1,1 +1,1 @@
-TODO
+Displays an item's rarity's color around the item (lining the item slot) as a border. This mod is directly inspired by "Rarity Borders" with what is, in my eyes, much better execution.

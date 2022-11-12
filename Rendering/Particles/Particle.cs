@@ -34,7 +34,9 @@ public abstract class Particle
         Frame = frame;
     }
 
-    public virtual void Update() { }
+    public virtual void Update(bool inItemSlot, ItemDrawData itemDrawData) {
+        Position += Velocity;
+    }
 
     public virtual void DrawBefore(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData) {
         if (Z >= 0.5f) return;

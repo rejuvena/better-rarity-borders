@@ -31,7 +31,7 @@ public sealed class ParticleRenderingSystem : IRenderingSystem
     }
 
     private void SpawnParticles(bool inItemSlot, ItemDrawData itemDrawData) {
-        if (itemDrawData.Item.rare == ItemRarityID.White && Main.rand.NextBool(30))
-            Particles.Add(new ExampleParticle(itemDrawData.ItemPosition, velocity: new Vector2(Main.rand.NextFloat() * 20f, Main.rand.NextFloat() * 20f)));
+        if (itemDrawData.Item.rare == ItemRarityID.Blue && Main.rand.NextBool(90))
+            Particles.Add(new SparkleParticle(itemDrawData.ItemPosition + Main.rand.NextVector2Circular(25, 25), z: 0.25f, scale: Main.rand.NextFloat(0.85f,1.15f), velocity: Vector2.Zero, color: Color.Blue));
     }
 }

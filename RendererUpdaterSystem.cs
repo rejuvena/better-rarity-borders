@@ -22,7 +22,7 @@ public sealed class RendererUpdaterSystem : ModSystem
     private static void DetermineItemSlowDrawing(On.Terraria.UI.ItemSlot.orig_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color orig, SpriteBatch spritebatch, Item[] inv, int context, int slot, Vector2 position, Color lightColor) {
         var system = ModContent.GetInstance<RendererUpdaterSystem>();
 
-        system.SlotDrawData = new SlotDrawData(true, position);
+        system.SlotDrawData = new SlotDrawData(true, position, context, slot);
         orig(spritebatch, inv, context, slot, position, lightColor);
         system.SlotDrawData = new SlotDrawData();
     }

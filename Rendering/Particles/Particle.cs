@@ -34,7 +34,7 @@ public abstract class Particle
         Frame = frame;
     }
 
-    public virtual void Update(bool inItemSlot, ItemDrawData itemDrawData) {
+    public virtual void Update() {
         Position += Velocity;
     }
 

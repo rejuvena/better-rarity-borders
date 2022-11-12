@@ -4,7 +4,7 @@ namespace BetterRarityBorders.Rendering;
 
 public interface IRenderingSystem
 {
-    void Update(bool inItemSlot, ItemDrawData itemDrawData);
+    void Update();
 
     void DrawBefore(SpriteBatch sb, bool inItemSlot, ItemDrawData itemDrawData);
 

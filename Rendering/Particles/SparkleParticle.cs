@@ -17,7 +17,7 @@ public class SparkleParticle : Particle
     public SparkleParticle(Vector2 position, float z = 0, Vector2? velocity = null, float scale = 1, float rotation = 0, Color? color = null, float alpha = 1) :
         base(position, new Rectangle(18 * Main.rand.Next(2), 0, 18, 18), z, velocity, scale, rotation, color, alpha) { }
 
-    public override void Update(bool inItemSlot, ItemDrawData itemDrawData)
+    public override void Update()
     {
         Velocity = Vector2.Zero;
         timer++;

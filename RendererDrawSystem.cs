@@ -1,5 +1,5 @@
-﻿using System;
-using BetterRarityBorders.Rendering;
+﻿using BetterRarityBorders.Rendering;
+using BetterRarityBorders.Rendering.Particles;
 using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,7 +30,7 @@ public sealed class RendererDrawSystem : GlobalItem
         bool drawingInItemSlot = ModContent.GetInstance<RendererUpdaterSystem>().IsDrawingInItemSlot;
         var drawData = new ItemDrawData(item, position, frame, drawColor, itemColor, origin, scale);
 
-        foreach (var renderer in Mod.Renderers) renderer.Update(drawingInItemSlot, drawData);
+        foreach (var renderer in Mod.Renderers) if (renderer is ParticleRenderingSystem pRenderer) pRenderer.SpawnParticles(drawingInItemSlot, drawData);
         foreach (var renderer in Mod.Renderers) renderer.DrawBefore(spriteBatch, drawingInItemSlot, drawData);
 
         return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);

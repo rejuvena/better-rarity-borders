@@ -1,0 +1,9 @@
+﻿{
+    Mods.BetterRarityBorders: {
+        UI: {
+            SearchHintText: Search...
+            SearchCursor: |
+            ConfigButtonName: Better Rarity Borders Config
+        }
+    }
+}

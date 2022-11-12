@@ -4,12 +4,33 @@
             Title: "Better Rarity Borders Config",
             
             PanelHeader: "Panel Options",
+
             BorderType.Name: "Panel Type",
             BorderType.Tooltip: "The type of panel to use for the rarity borders.",
             
+            BorderRarityBlacklist.Name: "Border Rarity Blacklist",
+            BorderRarityBlacklist.Tooltip: '''
+                                           The rarities to not show borders for. List items are strings, formatted as "ModName:RarityName".
+                                           This is an advanced feature, join the Discord (through the mod homepage) if you need help.
+                                           '''
+
+            BorderContextBlacklist.Name: "Border ItemSlot Context Blacklist",
+            BorderContextBlacklist.Tooltip: '''
+                                            The ItemSlot contexts to not show borders for. List items are integers.
+                                            This is an advanced feature, join the Discord (through the mod homepage) if you need help.
+                                            '''
+            
             RarityHeader: "Rarity Options",
+
             CoinRarities.Name: "Custom Coin Rarities",
             CoinRarities.Tooltip: "Give coins custom border colors corresponding to their pick-up text.",
+            
+            CustomRarityOverrides.Name: "Custom Rarity Overrides",
+            CustomRarityOverrides.Tooltip: '''
+                                           Overrides for the default rarity colors. List items are strings, formatted as "ModName:RarityName;HexColor".
+                                           Examples: "Terraria:Red;#FF0000", "ThoriumMod:Turquoise;#00FFFF"
+                                           This is an advanced feature, join the Discord (through the mod homepage) if you need help.
+                                           '''
         }
 
         UI: {

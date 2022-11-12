@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
@@ -21,11 +22,23 @@ public sealed class BrbConfig : ModConfig
     [Slider]
     public int BorderType { get; set; } = 0;
 
+    [Label("$Mods.BetterRarityBorders.Config.BorderRarityBlacklist.Name")]
+    [Tooltip("$Mods.BetterRarityBorders.Config.BorderRarityBlacklist.Tooltip")]
+    public List<string> BorderRarityBlacklist = new();
+    
+    [Label("$Mods.BetterRarityBorders.Config.BorderContextBlacklist.Name")]
+    [Tooltip("$Mods.BetterRarityBorders.Config.BorderContextBlacklist.Tooltip")]
+    public List<int> BorderContextBlacklist = new();
+
     [Header("$Mods.BetterRarityBorders.Config.RarityHeader")]
     [Label("$Mods.BetterRarityBorders.Config.CoinRarities.Name")]
     [Tooltip("$Mods.BetterRarityBorders.Config.CoinRarities.Tooltip")]
     [DefaultValue(true)]
     public bool CoinRarities { get; set; } = true;
+    
+    [Label("$Mods.BetterRarityBorders.Config.CustomRarityOverrides.Name")]
+    [Tooltip("$Mods.BetterRarityBorders.Config.CustomRarityOverrides.Tooltip")]
+    public List<string> CustomRarityOverrides = new();
 
     public override void OnChanged() {
         base.OnChanged();

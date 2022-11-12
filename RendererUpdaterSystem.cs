@@ -27,7 +27,7 @@ public sealed class RendererUpdaterSystem : ModSystem
         system.SlotDrawData = new SlotDrawData();
     }
 
-    private static void RenderBordersAndParticles(On.Terraria.Main.orig_DrawInterface_27_Inventory orig, Terraria.Main self) {
+    private static void RenderBordersAndParticles(On.Terraria.Main.orig_DrawInterface_27_Inventory orig, Main self) {
         var mod = ModContent.GetInstance<BetterRarityBordersMod>();
 
         foreach (var renderer in mod.Renderers) renderer.Update();

@@ -10,6 +10,8 @@ public abstract class Particle
 {
     protected abstract Lazy<Asset<Texture2D>> Texture { get; }
 
+    public bool HasBeenDrawnThisFrame { get; set; } = false;
+
     public bool IsAlive { get; protected set; } = true;
 
     protected virtual bool DrawAdditively { get; } = false;
@@ -35,16 +37,19 @@ public abstract class Particle
     }
 
     public virtual void Update() {
+        HasBeenDrawnThisFrame = false;
         Position += Velocity;
     }
 
     public virtual void DrawBefore(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
         if (Z >= 0.5f) return;
+        HasBeenDrawnThisFrame = true;
         DrawParticle(sb);
     }
 
     public virtual void DrawAfter(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
         if (Z < 0.5f) return;
+        HasBeenDrawnThisFrame = true;
         DrawParticle(sb);
     }
 

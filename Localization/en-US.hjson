@@ -1,5 +1,17 @@
 ﻿{
     Mods.BetterRarityBorders: {
+        Config: {
+            Title: "Better Rarity Borders Config",
+            
+            PanelHeader: "Panel Options",
+            BorderType.Name: "Panel Type",
+            BorderType.Tooltip: "The type of panel to use for the rarity borders.",
+            
+            RarityHeader: "Rarity Options",
+            CoinRarities.Name: "Custom Coin Rarities",
+            CoinRarities.Tooltip: "Give coins custom border colors corresponding to their pick-up text.",
+        }
+
         UI: {
             SearchHintText: Search...
             SearchCursor: |

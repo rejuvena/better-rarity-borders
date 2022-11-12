@@ -31,7 +31,7 @@ public sealed class RendererDrawSystem : GlobalItem
         var drawData = new ItemDrawData(item, position, frame, drawColor, itemColor, origin, scale);
 
         foreach (var renderer in Mod.Renderers) if (renderer is ParticleRenderingSystem pRenderer) pRenderer.SpawnParticles(slotDrawData, drawData);
-        foreach (var renderer in Mod.Renderers) renderer.DrawBefore(spriteBatch, slotDrawData, drawData);
+        foreach (var renderer in Mod.Renderers) if (renderer is ParticleRenderingSystem) renderer.DrawBefore(spriteBatch, slotDrawData, drawData);
 
         return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
     }

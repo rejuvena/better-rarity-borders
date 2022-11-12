@@ -27,8 +27,9 @@
             
             CustomRarityOverrides.Name: "Custom Rarity Overrides",
             CustomRarityOverrides.Tooltip: '''
-                                           Overrides for the default rarity colors. List items are strings, formatted as "ModName:RarityName;HexColor".
-                                           Examples: "Terraria:Red;#FF0000", "ThoriumMod:Turquoise;#00FFFF"
+                                           Overrides for the default rarity colors. List items are strings, formatted as "ModName:ContentName;HexColor".
+                                           To override a rarity color: "Terraria:Red;#FF0000", "ThoriumMod:Turquoise;#00FFFF"
+                                           To override an item rarity: "Terraria:IronPickaxe;#000000"
                                            This is an advanced feature, join the Discord (through the mod homepage) if you need help.
                                            '''
         }

@@ -21,10 +21,19 @@ public sealed class BetterRarityBordersMod : Mod
         new ParticleRenderingSystem()
     };
 
-    public Dictionary<int, Func<Color>> BorderColorOverrides { get; } = new();
+    [Obsolete("Use ItemBorderOverrides instead.")]
+    public Dictionary<int, Func<Color>> BorderColorOverrides => ItemBorderOverrides;
+
+    public Dictionary<int, Func<Color>> ItemBorderOverrides { get; } = new();
+
+    public Dictionary<int, Func<Color>> RarityBorderOverrides { get; } = new();
+
+    private readonly List<(int type, Func<Color> colorProvider)> RegisteredItemOverrides = new();
+    private readonly List<(int type, Func<Color> colorProvider)> RegisteredRarityOverrides = new();
 
     public Color GetBorderColor(Item item) {
-        if (BorderColorOverrides.TryGetValue(item.type, out Func<Color>? color)) return color();
+        if (ItemBorderOverrides.TryGetValue(item.type, out Func<Color>? color)) return color();
+        if (RarityBorderOverrides.TryGetValue(item.rare, out color)) return color();
         if (item.rare >= ItemRarityID.Count) return RarityLoader.GetRarity(item.rare).RarityColor;
         return ItemRarity.GetColor(item.rare);
     }
@@ -70,17 +79,37 @@ public sealed class BetterRarityBordersMod : Mod
         if (args.Length == 0 || args[0] is not string key) return null;
 
         switch (key.ToLower()) {
-            case "setbordercolor":
-                if (args.Length < 3 || args[1] is not int type) return null;
-                if (args[2] is Color color)
-                    BorderColorOverrides[type] = () => color;
+            case "setbordercolor": // obsolete
+            case "setitembordercolor":
+                if (args.Length < 3 || args[1] is not int itemType) return null;
+                if (args[2] is Color itemColor)
+                    RegisteredItemOverrides.Add((itemType, () => itemColor));
                 else if (args[2] is Func<Color> colorFunc)
-                    BorderColorOverrides[type] = colorFunc;
+                    RegisteredItemOverrides.Add((itemType, colorFunc));
                 else
                     return null;
+                UpdateColorOverrides();
+                return true;
+            
+            case "setraritybordercolor":
+                if (args.Length < 3 || args[1] is not int rarityType) return null;
+                if (args[2] is Color rarityColor)
+                    RegisteredRarityOverrides.Add((rarityType, () => rarityColor));
+                else if (args[2] is Func<Color> colorFunc)
+                    RegisteredRarityOverrides.Add((rarityType, colorFunc));
+                else
+                    return null;
+                UpdateColorOverrides();
                 return true;
         }
 
         return null;
+    }
+
+    public void UpdateColorOverrides() {
+        ItemBorderOverrides.Clear();
+        RarityBorderOverrides.Clear();
+        RegisteredItemOverrides.ForEach(x => ItemBorderOverrides[x.type] = x.colorProvider);
+        RegisteredRarityOverrides.ForEach(x => RarityBorderOverrides[x.type] = x.colorProvider);
     }
 }

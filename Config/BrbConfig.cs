@@ -23,25 +23,30 @@ public sealed class BrbConfig : ModConfig
     [DefaultValue(0)]
     [Range(0, 19)]
     [Slider]
+    [UsedImplicitly]
     public int BorderType { get; set; } = 0;
 
     [Label("$Mods.BetterRarityBorders.Config.BorderRarityBlacklist.Name")]
     [Tooltip("$Mods.BetterRarityBorders.Config.BorderRarityBlacklist.Tooltip")]
-    public List<string> BorderRarityBlacklist = new();
-    
+    [UsedImplicitly]
+    public List<string> BorderRarityBlacklist { get; set; } = new();
+
     [Label("$Mods.BetterRarityBorders.Config.BorderContextBlacklist.Name")]
     [Tooltip("$Mods.BetterRarityBorders.Config.BorderContextBlacklist.Tooltip")]
-    public List<int> BorderContextBlacklist = new();
+    [UsedImplicitly]
+    public List<int> BorderContextBlacklist { get; set; } = new();
 
     [Header("$Mods.BetterRarityBorders.Config.RarityHeader")]
     [Label("$Mods.BetterRarityBorders.Config.CoinRarities.Name")]
     [Tooltip("$Mods.BetterRarityBorders.Config.CoinRarities.Tooltip")]
     [DefaultValue(true)]
+    [UsedImplicitly]
     public bool CoinRarities { get; set; } = true;
-    
+
     [Label("$Mods.BetterRarityBorders.Config.CustomRarityOverrides.Name")]
     [Tooltip("$Mods.BetterRarityBorders.Config.CustomRarityOverrides.Tooltip")]
-    public List<string> CustomRarityOverrides = new();
+    [UsedImplicitly]
+    public List<string> CustomRarityOverrides { get; set; } = new();
 
     public override void OnChanged() {
         base.OnChanged();
@@ -58,9 +63,12 @@ public sealed class BrbConfig : ModConfig
         foreach (string cro in CustomRarityOverrides) {
             static (bool useRarity, int rarityType, int itemType) ExtractTypesFromContent(string content) {
                 if (ModContent.TryFind<ModItem>(content, out var item)) return (false, int.MinValue, item.Type);
+                if (!content.Contains(';')) return (false, int.MinValue, int.MinValue);
+                string[] split = content.Split(';', 2);
+                if (split[0] == "Terraria" && ItemID.Search.ContainsName(split[1])) return (true, int.MinValue, ItemID.Search.GetId(split[1]));
                 return (true, BetterRarityBordersMod.GetRarityType(content), int.MinValue);
             }
-            
+
             if (!cro.Contains(';')) continue;
             string[] split = cro.Split(';', 2);
             string content = split[0];
@@ -68,9 +76,10 @@ public sealed class BrbConfig : ModConfig
             (bool useRarity, int rarityType, int itemType) = ExtractTypesFromContent(content);
             if ((useRarity && rarityType == int.MinValue) || (!useRarity && itemType == int.MinValue)) continue;
 
-            if (color.StartsWith('#')) color = content[1..];
+            if (color.StartsWith('#'))
+                color = content[1..];
             else if (color.StartsWith("0x")) color = content[2..];
-            
+
             color = color.ToUpper();
             if (color.Any(x => x is < '0' or > 'F' or > '9' and < 'A')) continue;
 

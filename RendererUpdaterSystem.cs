@@ -15,7 +15,7 @@ public sealed class RendererUpdaterSystem : ModSystem
     public override void Load() {
         base.Load();
 
-        On.Terraria.Main.DrawInterface_27_Inventory += RenderBordersAndParticles;
+        On.Terraria.Main.DrawInterface_27_Inventory += UpdateAndFinalizeRenderers;
         On.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color += DetermineItemSlowDrawing;
     }
 
@@ -27,11 +27,13 @@ public sealed class RendererUpdaterSystem : ModSystem
         system.SlotDrawData = new SlotDrawData();
     }
 
-    private static void RenderBordersAndParticles(On.Terraria.Main.orig_DrawInterface_27_Inventory orig, Main self) {
+    private static void UpdateAndFinalizeRenderers(On.Terraria.Main.orig_DrawInterface_27_Inventory orig, Main self) {
         var mod = ModContent.GetInstance<BetterRarityBordersMod>();
 
         foreach (var renderer in mod.Renderers) renderer.Update();
 
         orig(self);
+        
+        foreach (var renderer in mod.Renderers) if (renderer is IDrawingFinalizable finalizable) finalizable.FinalizeDrawing(Main.spriteBatch);
     }
 }

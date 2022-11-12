@@ -16,8 +16,12 @@ public sealed class BorderRenderingSystem : IRenderingSystem
     void IRenderingSystem.DrawBefore(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
         if (!slotDrawData.InItemSlot) return;
         if (slotDrawData.Context is ItemSlot.Context.ChatItem or ItemSlot.Context.MouseItem) return;
+        
         var mod = ModContent.GetInstance<BetterRarityBordersMod>();
         var config = ModContent.GetInstance<BrbConfig>();
+
+        if (config.BorderContextBlacklist.Contains(slotDrawData.Context)) return;
+        
         var texture = ModContent.Request<Texture2D>($"BetterRarityBorders/Assets/Border{config.BorderType}").Value;
         sb.Draw(
             texture,

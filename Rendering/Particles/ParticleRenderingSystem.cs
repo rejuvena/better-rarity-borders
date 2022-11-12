@@ -27,9 +27,10 @@ public sealed class ParticleRenderingSystem : IRenderingSystem
     void IRenderingSystem.DrawAfter(SpriteBatch sb, SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
         Particles.ForEach(x => x.DrawAfter(sb, slotDrawData, itemDrawData));
     }
-
+    
     public void SpawnParticles(SlotDrawData slotDrawData, ItemDrawData itemDrawData) {
+        float sin = Main.rand.NextFloat(6.28f);
         if (itemDrawData.Item.rare == ItemRarityID.Blue && Main.rand.NextBool(90))
-            Particles.Add(new SparkleParticle(itemDrawData.ItemPosition + Main.rand.NextVector2Circular(25, 25), z: 0.25f, scale: Main.rand.NextFloat(0.85f,1.15f), velocity: Vector2.Zero, color: Color.Blue));
+            Particles.Add(new SparkleParticle(itemDrawData.ItemPosition + Main.rand.NextVector2Circular(20, 20), z: 0.75f, scale: Main.rand.NextFloat(0.5f, 0.75f), velocity: Vector2.Zero, color: Color.SkyBlue));
     }
 }

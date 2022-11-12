@@ -31,10 +31,10 @@ public sealed class BrbConfig : ModConfig
         base.OnChanged();
 
         if (CoinRarities) {
-            Mod.BorderColorOverrides[ItemID.CopperCoin] = Colors.CoinCopper;
-            Mod.BorderColorOverrides[ItemID.SilverCoin] = Colors.CoinSilver;
-            Mod.BorderColorOverrides[ItemID.GoldCoin] = Colors.CoinGold;
-            Mod.BorderColorOverrides[ItemID.PlatinumCoin] = Colors.CoinPlatinum;
+            Mod.BorderColorOverrides[ItemID.CopperCoin] = () => Colors.CoinCopper;
+            Mod.BorderColorOverrides[ItemID.SilverCoin] = () => Colors.CoinSilver;
+            Mod.BorderColorOverrides[ItemID.GoldCoin] = () => Colors.CoinGold;
+            Mod.BorderColorOverrides[ItemID.PlatinumCoin] = () => Colors.CoinPlatinum;
         }
         else {
             Mod.BorderColorOverrides.Remove(ItemID.CopperCoin); 
